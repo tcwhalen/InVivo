@@ -20,7 +20,7 @@ arguments
         % no information after hi is used and 3*std is cut
         
     % Optional tunable arguments
-    op.FS double = 0.001 % sampling frequency of returned time series in Hz 
+    op.FS double = 1000 % sampling frequency of returned time series in Hz 
         % (i.e. 1/bin length) Should be less than the aquisition FS of ts.
     op.cut double = 3 % number of std's to remove from either end of signal
         % after smoothing to avoid edge effects. Default of 3 gets you
@@ -30,7 +30,7 @@ end
 
 FS = op.FS; cut = op.cut;
 
-dt = 1/FS1; % downsample to 1 kHz
+dt = 1/FS; % downsample to 1 kHz
 times_full = lo:dt:hi;
 nbins = length(times_full);
 binm = 1/dt; % bins/sec

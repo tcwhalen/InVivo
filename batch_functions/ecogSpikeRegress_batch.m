@@ -33,7 +33,7 @@ for f = 1:data.nfiles
     ecog = data.ecogs{f};
     ecog = ecogThreshold(ecog,data.ecog_noise_thresh(f));
     ts = data.ts{f}(data.rates{f}>min_rate);
-    [ecog_reg] = ecogSpikeRegress(ts, ecog, data.T(f), data.ecog_start(f), data.ECOG_FS(f), bin, step, ar_lag, nlag_past, nlag_fut, alpha, do_sdf, sdf_std, backwards);
+    [ecog_reg] = ecogSpikeRegress(ts, ecog, data.T(f), data.ecog_start(f), data.ECOG_FS(f), 'bin', bin, 'step', step, 'ar_lag', ar_lag, 'nlag_past', nlag_past, 'nlag_fut', nlag_fut, 'alpha', alpha, 'do_sdf', do_sdf, 'sdf_std', sdf_std, 'backwards', backwards);
 
     data.ecog_reg.sig_lags{f} = ecog_reg.sig_lags;
     data.ecog_reg.bs{f} = ecog_reg.bs;
