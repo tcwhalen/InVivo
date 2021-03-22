@@ -1,5 +1,5 @@
 function [ psd_corr, phshift, psd_unc ] = renewalPSD_phaseShift(ts, op)
-% Tim C Whalen, last edited July 2020
+% Tim C Whalen, last edited July 2020, docs updated Mar 2021
 % Calculates renewal-corrected PSD and phase shift from spike train using
 % Welch's method (average of multiple overlapping windows)
 %
@@ -16,36 +16,30 @@ function [ psd_corr, phshift, psd_unc ] = renewalPSD_phaseShift(ts, op)
 % see Whalen et al 2020, "Delta oscillations are a robust biomarker of 
 % dopamine depletion severity and motor dysfunction in awake mice".
 %
-% Due to edge effects, windows with fewer than 3 spikes are ignored.
+% Due to edge effects, windows with 3 or fewer spikes are ignored.
 %
 % Outputs:
 %   psd_corr: (:,1) double, renewal-corrected power spectral density
 %       using Welch's method.
 %   phshift: (:,1) double, mean phase shift (see Whalen 2020 methods)
 %   psd_unc: (:,1) double, uncorrected power spectral density using
-%       Welch's method)
+%       Welch's method
 %
-% See arguments block for inputs. "op" are given as name-value pairs
-
-% Bergman 
-% Inputs:
-%   ts: Nx1 num vector, spike times in sec
-%   wind: int, window size for Welch's method (ideally power of 2, also
-%       determines Rayleigh frequency)
-%   step: int, step size for overlapping windows
-%   FS: num, frequency to downsample spike train to (also determines
-%       Nyquist frequency)
+% See arguments block for inputs. Optional values ("op") are given as name-
+% value pairs
 
 arguments
     %% Required arguments
-    ts (:,1) double % spike times in seconds
+    ts (:,1) double % spike times in seconds. If the sampling frequency is
+        % is less than 1 kHz, be sure to include the FS optional argument.
     
     %% Optional tunable arguments
     op.wind double {mustBeInteger} = 2^12 % window size (in bins) for 
         % Welch's method (ideally power of 2, also determines Rayleigh 
         % frequency)
     op.step double {mustBeInteger} = 2^9 % step size (in bins) for 
-        % overlapping windows. No overlap if step==wind
+        % overlapping windows. No overlap if step==wind. Data will be
+        % needlessly skipped if step>wind.
     op.FS double = 1000 % frequency (Hz) to downsample spike train to (also 
         % determines Nyquist frequency)
 end

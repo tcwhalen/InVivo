@@ -3,7 +3,7 @@ function [ data ] = renewalPSD_phaseShift_batch( data )
 % Finds oscillations in spike trains and plots autocorrelation, renewal-
 % corrected power spectral density (PSD) and mean phase shift plots.
 %
-% data must include: ts, animalcodees, files_trunc (for title, only if plotting)
+% data must include: ts, T, animalcodees, rates, nfiles, files_trunc (for title, only if to_plot==1)
 %
 % To specify parameters, add the sub-struct "osc" to your data struct 
 % containg any of:
